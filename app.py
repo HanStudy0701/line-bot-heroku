@@ -54,8 +54,8 @@ scheduler.add_job(lambda: line_bot_api.push_message(USER_ID, TextSendMessage(tex
 # 晚安提醒
 scheduler.add_job(lambda: line_bot_api.push_message(USER_ID, TextSendMessage(text=get_life_reminder("辛苦一天了，別忘了休息與放鬆 🧘"))), 'cron', hour=18, minute=30)
 
-# 晚上 9:50 測試訊息
-scheduler.add_job(lambda: line_bot_api.push_message(USER_ID, TextSendMessage(text="🧪 測試訊息：現在是 21:50，我是你安排的測試任務！")), 'cron', hour=21, minute=50)
+# ✅ 測試推播：台灣時間 21:55（UTC+8 → UTC 13:55）
+scheduler.add_job(lambda: line_bot_api.push_message(USER_ID, TextSendMessage(text="🧪 測試訊息：現在是台灣時間 21:55，我是你安排的測試任務！")), 'cron', hour=13, minute=55)
 
 scheduler.start()
 
@@ -77,5 +77,4 @@ def handle_message(event):
     line_bot_api.reply_message(event.reply_token, TextSendMessage(text='我收到你的訊息囉！'))
 
 if __name__ == "__main__":
-    # line_bot_api.push_message(USER_ID, TextSendMessage(text="✅ Bot 啟動成功！"))
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
