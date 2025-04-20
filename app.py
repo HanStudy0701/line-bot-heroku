@@ -49,3 +49,10 @@ def debug_all(event):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
+if __name__ == "__main__":
+    # 測試訊息
+    line_bot_api.push_message(USER_ID, TextSendMessage(text="✅ 測試成功！這是來自你 Bot 的訊息！"))
+    
+    # 啟動伺服器
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
