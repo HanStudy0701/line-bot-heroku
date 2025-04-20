@@ -22,7 +22,7 @@ def send_daily_message():
 
 # 定時排程
 scheduler = BackgroundScheduler()
-scheduler.add_job(send_daily_message, 'cron', hour=8)  # 每天早上8點
+scheduler.add_job(send_daily_message, 'cron', hour=8)
 scheduler.start()
 
 @app.route("/callback", methods=['POST'])
@@ -37,8 +37,8 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    print("⭐️ 使用者 ID：", event.source.user_id)  # 印出 user ID
+    print("⭐️ 使用者 ID：", event.source.user_id)
     line_bot_api.reply_message(event.reply_token, TextSendMessage(text='我收到你的訊息囉！'))
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
