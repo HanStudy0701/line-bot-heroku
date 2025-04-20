@@ -35,10 +35,19 @@ def callback():
         abort(400)
     return 'OK'
 
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    print("⭐️ 使用者 ID：", event.source.user_id)  # 印出 user ID
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(text='我收到你的訊息囉！'))
+# 萬用事件偵測：印出所有 MessageEvent 類型
+@handler.add(MessageEvent)
+def debug_all(event):
+    print("🌀 收到事件：", event)
+    try:
+        user_id = event.source.user_id
+        print("⭐️ 使用者 ID：", user_id)
+    except Exception as e:
+        print("❌ 無法取得使用者 ID：", e)
+
+    # 如為文字訊息，回覆
+    if isinstance(event.message, TextMessage):
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='我收到你的訊息囉！'))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
