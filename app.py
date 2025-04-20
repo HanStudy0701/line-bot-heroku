@@ -35,7 +35,6 @@ def callback():
         abort(400)
     return 'OK'
 
-# 萬用事件偵測：印出所有 MessageEvent 類型
 @handler.add(MessageEvent)
 def debug_all(event):
     print("🌀 收到事件：", event)
@@ -45,7 +44,6 @@ def debug_all(event):
     except Exception as e:
         print("❌ 無法取得使用者 ID：", e)
 
-    # 如為文字訊息，回覆
     if isinstance(event.message, TextMessage):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='我收到你的訊息囉！'))
 
